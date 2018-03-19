@@ -25,11 +25,15 @@ class Board extends React.Component {
         // found loop here
         // https://stackoverflow.com/questions/39479528/react-js-using-html-to-make-grid-dynamically
         let rows = [];
-        for (var i = 0; i < 3; i++){
+        let currCount = 0;
+        let height = 3;
+        let width = 4;
+        for (var i = 0; i < height; i++){
             let cell = []
-            for (var idx = 0; idx < 3; idx++){
-                cell.push(this.renderSquare(idx))
+            for (var idx = 0; idx < width; idx++){
+                cell.push(this.renderSquare(idx + currCount))
             }
+            currCount += idx;
             rows.push(<div className="board-row"> {cell}</div>)
         }
         return (
