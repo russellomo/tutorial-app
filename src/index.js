@@ -21,6 +21,9 @@ class Board extends React.Component {
     }
 
     render() {
+        // Renders in a dynamic way
+        // found loop here
+        // https://stackoverflow.com/questions/39479528/react-js-using-html-to-make-grid-dynamically
         let rows = [];
         for (var i = 0; i < 3; i++){
             let cell = []
