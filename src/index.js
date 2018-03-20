@@ -26,15 +26,15 @@ class Board extends React.Component {
         // https://stackoverflow.com/questions/39479528/react-js-using-html-to-make-grid-dynamically
         let rows = [];
         let currCount = 0;
-        let height = 3;
-        let width = 4;
+        let height = this.props.rowNum;
+        let width = this.props.colNum;
         for (var i = 0; i < height; i++){
-            let cell = []
+            let cell = [];
             for (var idx = 0; idx < width; idx++){
                 cell.push(this.renderSquare(idx + currCount))
             }
             currCount += idx;
-            rows.push(<div className="board-row"> {cell}</div>)
+            rows.push(<div className="board-row">{cell}</div>)
         }
         return (
             <div>
@@ -54,7 +54,9 @@ class Game extends React.Component {
                 }
             ],
             stepNumber: 0,
-            xIsNext: true
+            xIsNext: true,
+            rowNum: 3,
+            colNum: 3
         };
     }
 
@@ -73,7 +75,8 @@ class Game extends React.Component {
                 }
             ]),
             stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
+            xIsNext: !this.state.xIsNext,
+
         });
     }
 
@@ -113,9 +116,19 @@ class Game extends React.Component {
                     <Board
                         squares={current.squares}
                         onClick={i => this.handleClick(i)}
+                        rowNum={this.state.rowNum}
+                        colNum={this.state.colNum}
                     />
                 </div>
                 <div className="game-info">
+                    <div>
+                        <label>Number of Rows</label>
+                        <input value={this.state.rowNum} onChange={event => this.setState({rowNum: event.target.value.replace(/\D/,'')})}/>
+                    </div>
+                    <div>
+                        <label>Number of Columns</label>
+                        <input value={this.state.colNum} onChange={event => this.setState({colNum: event.target.value.replace(/\D/,'')})}/>
+                    </div>
                     <div>{status}</div>
                     <ol>{moves}</ol>
                 </div>
